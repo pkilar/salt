@@ -25,6 +25,8 @@ def ext_pillar(minion_id,
     '''
     try:
         data = yaml.safe_load(__salt__['cmd.run']('{0} {1}'.format(command, minion_id)))
+        data['parameters'].update({'environment': data['environment']})
+        data['parameters'].update({'classes': data['classes']})
         data = data['parameters']
         return data
     except Exception:
